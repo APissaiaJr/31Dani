@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Daniele! 🎉 31 Anos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        violetBrand: {
+                            50: '#F5F3FF',
+                            100: '#EDE9FE',
+                            200: '#DDD6FE',
+                            300: '#C4B5FD',
+                            400: '#A78BFA',
+                            500: '#8B5CF6',
+                            600: '#7C3AED',
+                            700: '#6D28D9',
+                            800: '#5B21B6',
+                            900: '#4C1D95',
+                            950: '#2E1065',
+                        },
+                        nightViolet: '#0F0921',
+                        deepPurple: '#180E29',
+                        glassBg: 'rgba(30, 16, 52, 0.65)'
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        cursive: ['Sacramento', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0c0719;
+            color: #f1f0f7;
+        }
+
+        .glass-purple {
+            background: rgba(32, 17, 56, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(167, 139, 250, 0.25);
+        }
+
+        .glass-purple-card {
+            background: rgba(43, 23, 76, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(196, 181, 253, 0.2);
+        }
+
+        .glow-purple {
+            box-shadow: 0 0 35px rgba(139, 92, 246, 0.35);
+        }
+
+        .glow-subtle {
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.15);
+        }
+
+        /* Equalizador Animado */
+        .eq-bar {
+            width: 3px;
+            background-color: #A78BFA;
+            border-radius: 3px;
+            animation: eqBounce 1.2s ease-in-out infinite alternate;
+        }
+
+        .eq-bar:nth-child(1) { height: 12px; animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { height: 8px;  animation-delay: 0.2s; }
+        .eq-bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+
+        .playing .eq-bar {
+            animation-play-state: running;
+        }
+
+        .paused .eq-bar {
+            animation-play-state: paused;
+            height: 4px !important;
+        }
+
+        @keyframes eqBounce {
+            0% { height: 4px; }
+            100% { height: 22px; }
+        }
+
+        /* Canvas de Balões de Fundo */
+        #balloons-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-violetBrand-500 selection:text-white relative overflow-x-hidden">
+
+    <!-- CANVAS DE BALÕES FLUTUANTES NO FUNDO -->
+    <canvas id="balloons-canvas"></canvas>
+
+    <!-- GUIA RÁPIDA DE AJUSTE DOS ARQUIVOS EM COMENTÁRIO HTML:
+        =====================================================================
+        COMO TROCAR FOTOS E ÁUDIOS DE FORMA FÁCIL:
+        1. Para trocar uma FOTO:
+           Procure por "src=" e troque a URL da imagem por um caminho de arquivo local
+           como "minha-foto.jpg", "foto1.png" ou o link da sua foto na web.
+        2. Para trocar um ÁUDIO:
+           Procure pela tag <audio id="audio-1" ... src="..."> e coloque o caminho
+           do seu áudio local, ex: "mensagem1.mp3", "audio_mae.mp3", etc.
+        =====================================================================
+    -->
+
+    <!-- CABEÇALHO / HERO SECTION -->
+    <header class="relative z-10 pt-12 pb-16 md:pt-20 md:pb-24 text-center px-4">
+        <!-- Luzes e gradientes de fundo no Hero -->
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-violetBrand-600 rounded-full blur-[120px] opacity-40 -z-10"></div>
+        <div class="absolute top-28 right-10 w-72 h-72 bg-fuchsia-600 rounded-full blur-[100px] opacity-25 -z-10"></div>
+
+        <div class="max-w-4xl mx-auto space-y-6">
+            <!-- Badge Aniversário -->
+            <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-purple text-violetBrand-200 font-semibold text-xs md:text-sm tracking-wider shadow-lg border border-violetBrand-400/30">
+                <i class="fa-solid fa-cake-candles text-violetBrand-400 animate-pulse"></i>
+                <span>08 DE NOVEMBRO • CELEBRAÇÃO DOS 31 ANOS</span>
+            </div>
+
+            <!-- Título Principal com Gradiente Roxo -->
+            <h1 class="font-serif text-5xl md:text-7xl font-bold text-white leading-tight">
+                Feliz Aniversário, <br class="md:hidden">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-violetBrand-300 via-violetBrand-400 to-fuchsia-300 drop-shadow">Daniele! 🎉🎈</span>
+            </h1>
+
+            <p class="text-base md:text-xl text-violetBrand-200 max-w-2xl mx-auto font-light leading-relaxed opacity-90">
+                Um espaço especial preparado com todo o carinho para comemorar seus <strong class="font-semibold text-white">31 anos</strong> de pura luz, alegrias e sorrisos!
+            </p>
+
+            <!-- Botão de Confetes / Brilhos Roxos -->
+            <div class="pt-4">
+                <button onclick="launchPurpleConfetti()" class="px-8 py-4 bg-gradient-to-r from-violetBrand-600 via-violetBrand-500 to-fuchsia-600 hover:from-violetBrand-500 hover:to-fuchsia-500 text-white font-medium rounded-full shadow-lg hover:shadow-violetBrand-500/50 transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 inline-flex items-center gap-3 group border border-violetBrand-300/30">
+                    <i class="fa-solid fa-wand-magic-sparkles text-violetBrand-200 group-hover:rotate-12 transition-transform"></i>
+                    <span class="tracking-wide">Soltar Brilhos e Confetes! ✨</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 max-w-5xl mx-auto px-4 space-y-20 pb-20">
+
+        <!-- SEÇÃO: MENSAGEM DE CARINHO (CARTA DOS 31 ANOS) -->
+        <section class="glass-purple rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden glow-purple">
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-fuchsia-500/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-violetBrand-500/20 rounded-full blur-2xl"></div>
+
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <div class="w-16 h-16 bg-violetBrand-900/80 border border-violetBrand-400/40 text-violetBrand-300 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+
+                <h2 class="font-serif text-3xl md:text-4xl font-bold text-white">
+                    Uma Carta do Coração para Dani 💜
+                </h2>
+
+                <div class="space-y-4 text-violetBrand-100 leading-relaxed font-light text-base md:text-lg">
+                    <p>
+                        Meu amor  <strong class="font-semibold text-violetBrand-300">Dani</strong>, hoje é O DIA de celebrar a pessoa incrível que você é e tudo de mais lindo que você espalha ao seu redor.
+                    </p>
+                    <p>
+                        Completar seus <strong class="font-semibold text-white"> 31 anos</strong> é olhar para trás com orgulho de cada história vivida e olhar para frente com entusiasmo por todos os novos sonhos que te esperam. Desejamos que seu novo ano seja repleto de saúde radiante, gargalhadas sinceras, conquistas inesquecíveis e momentos leves ao lado de quem te ama.
+                    </p>
+                    <p>
+                        Que este dia 08 de Novembro de 2026 abra caminhos iluminados e traga tudo de melhor que o universo tem para te oferecer meu amor!
+                    </p>
+                    <p class="font-cursive text-3xl md:text-4xl text-violetBrand-300 pt-4">
+                        Com todo o nosso amor e carinho! ✨
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: MENSAGENS DE VOZ & MEMÓRIAS (VOZES DO CORAÇÃO) -->
+        <section class="space-y-10">
+            <div class="text-center space-y-3">
+                <span class="text-xs font-bold text-violetBrand-400 uppercase tracking-widest bg-violetBrand-950/80 px-4 py-1.5 rounded-full border border-violetBrand-500/30 inline-block">
+                    Fotos & Vozes
+                </span>
+                <h2 class="font-serif text-3xl md:text-5xl font-bold text-white">Vozes do Coração 🎙️✨</h2>
+                <p class="text-violetBrand-200 max-w-xl mx-auto text-sm md:text-base font-light">
+                    Aperte o play em cada card abaixo para ouvir as mensagens especiais e ver fotos com pessoas que te amam.
+                </p>
+            </div>
+
+            <!-- GRID DOS CARDS DE ÁUDIO + FOTO -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- CARD 1 -->
+                <!-- 
+                    INSTRUÇÕES PARA ESSE CARD:
+                    1. Troque o link dentro do src="" da tag <img> pela sua foto com a pessoa (ex: "foto_mae.jpg" ou "foto1.png")
+                    2. Troque o link dentro do src="" da tag <audio> pelo seu áudio de voz (ex: "audio_mae.mp3" ou "recado1.mp3")
+                -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani com a Pessoa -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo para a sua foto local ex: "foto1.jpg" -->
+                            <img src="dani_mae.jpeg" 
+                                 alt="Dani e Mãe" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-heart text-violetBrand-400"></i>
+                                <span>Neuza</span>
+                            </div>
+                        </div>
+
+                        <!-- Título e Subtítulo do Card -->
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Momento Especial</h3>
+                                <p class="text-xs text-violetBrand-300">Recado cheio de carinho da sua mãe para você</p>
+                            </div>
+                            <!-- Indicador Visual / Equalizador -->
+                            <div id="eq-audio-1" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Player de Áudio Personalizado -->
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo para o seu arquivo local ex: "audio1.mp3" -->
+                        <audio id="audio-1" preload="metadata" src="mae_dani.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-1', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-1-current">0:00</span>
+                                    <span id="audio-1-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-1-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-1', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani com a Pessoa -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="dani_jow.jpeg" 
+                                 alt="Dani e Amor" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-star text-violetBrand-400"></i>
+                                <span>Jhonatan</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Sempre Juntos</h3>
+                                <p class="text-xs text-violetBrand-300">Desejos de um ano radiante</p>
+                            </div>
+                            <div id="eq-audio-2" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-2" preload="metadata" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-2', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-2-current">0:00</span>
+                                    <span id="audio-2-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-2-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-2', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani com Amigos -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Dani e Amigos" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-users text-violetBrand-400"></i>
+                                <span>Ediane</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Gargalhadas & Histórias</h3>
+                                <p class="text-xs text-violetBrand-300">Para a melhor parceira de vida</p>
+                            </div>
+                            <div id="eq-audio-3" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-3" preload="metadata" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-3', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-3-current">0:00</span>
+                                    <span id="audio-3-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-3-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-3', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani em Celebração -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Dani Especial" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles text-violetBrand-400"></i>
+                                <span>Juliana</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Sonhos & Conquistas</h3>
+                                <p class="text-xs text-violetBrand-300">Mensagem inspiradora dos 31 anos</p>
+                            </div>
+                            <div id="eq-audio-4" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-4" preload="metadata" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-4', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-4-current">0:00</span>
+                                    <span id="audio-4-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-4-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-4', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+ <!-- CARD 5 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani em Celebração -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="dani_pai.jpeg" 
+                                 alt="Dani Especial" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles text-violetBrand-400"></i>
+                                <span>Rogerio</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Sonhos & Conquistas</h3>
+                                <p class="text-xs text-violetBrand-300">Mensagem inspiradora dos 31 anos</p>
+                            </div>
+                            <div id="eq-audio-4" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-4" preload="metadata" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-4', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-4-current">0:00</span>
+                                    <span id="audio-4-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-4-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-4', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				 <!-- CARD 6 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani em Celebração -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" 
+                                 alt="Dani Especial" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles text-violetBrand-400"></i>
+                                <span>Lucas</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Sonhos & Conquistas</h3>
+                                <p class="text-xs text-violetBrand-300">Mensagem inspiradora dos 31 anos</p>
+                            </div>
+                            <div id="eq-audio-4" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-4" preload="metadata" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-4', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-4-current">0:00</span>
+                                    <span id="audio-4-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-4-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-4', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+				<!-- CARD 7 -->
+                <div class="glass-purple-card rounded-2xl p-5 shadow-xl hover:border-violetBrand-400/50 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <!-- Foto da Dani em Celebração -->
+                        <div class="relative h-64 w-full rounded-xl overflow-hidden mb-4 bg-violetBrand-950/60 border border-violetBrand-500/20">
+                            <!-- FOTO AQUI: Altere o src abaixo -->
+                            <img src="dani_selmo.jpeg" 
+                                 alt="Dani Especial" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute bottom-3 left-3 bg-nightViolet/80 backdrop-blur-md text-white text-xs px-3 py-1.5 rounded-full border border-violetBrand-400/30 flex items-center gap-2">
+                                <i class="fa-solid fa-sparkles text-violetBrand-400"></i>
+                                <span>Anselmo</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="font-serif text-2xl font-bold text-white">Felicidades meu amor ♥</h3>
+                                <p class="text-xs text-violetBrand-300">Feliz 31 anos minha princesa, eu te amo</p>
+                            </div>
+                            <div id="eq-audio-4" class="flex items-end gap-1 h-6 paused">
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                                <div class="eq-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violetBrand-950/90 rounded-xl p-3.5 border border-violetBrand-500/30 mt-4">
+                        <!-- ÁUDIO AQUI: Altere o src abaixo -->
+                        <audio id="audio-4" preload="metadata" src="selmo_dani.mp3"></audio>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="toggleAudio('audio-4', this)" class="w-11 h-11 rounded-full bg-violetBrand-600 hover:bg-violetBrand-500 text-white flex items-center justify-center shadow-lg transition-all shrink-0">
+                                <i class="fa-solid fa-play text-sm"></i>
+                            </button>
+
+                            <div class="flex-1 space-y-1">
+                                <div class="flex justify-between text-[11px] text-violetBrand-300 font-mono">
+                                    <span id="audio-4-current">0:00</span>
+                                    <span id="audio-4-duration">0:00</span>
+                                </div>
+                                <input type="range" id="audio-4-progress" value="0" min="0" max="100" 
+                                       onchange="seekAudio('audio-4', this.value)"
+                                       class="w-full h-1.5 bg-violetBrand-900 rounded-lg appearance-none cursor-pointer accent-violetBrand-400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				
+            </div>
+        </section>
+
+        <!-- MURAL INTERATIVO DE DESEJOS -->
+        <section class="glass-purple rounded-3xl p-8 md:p-10 text-center space-y-6 glow-subtle">
+            <div class="max-w-xl mx-auto space-y-3">
+                <h2 class="font-serif text-3xl font-bold text-white">Deixe seu Recado no Mural da Dani 💌</h2>
+                <p class="text-sm text-violetBrand-200">
+                    Escreva uma mensagem carinhosa para ficar registrada na comemoração de aniversário da Dani.
+                </p>
+            </div>
+
+            <button onclick="openModal()" class="px-8 py-3.5 bg-violetBrand-600 hover:bg-violetBrand-500 text-white rounded-full font-medium shadow-lg transition-all duration-300 inline-flex items-center gap-2 border border-violetBrand-400/30">
+                <i class="fa-regular fa-paper-plane"></i>
+                <span>Escrever Recadinho</span>
+            </button>
+
+            <!-- Lista Dinâmica de Mensagens -->
+            <div id="messages-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left pt-6 border-t border-violetBrand-500/20">
+                <div class="p-4 bg-violetBrand-950/60 rounded-xl border border-violetBrand-500/30 shadow-sm">
+                    <p class="text-sm text-violetBrand-100 italic">"Dani, feliz 31 anos DANIIIII! Que sua energia e alegria continuem iluminando a vida de todos!"</p>
+                    <span class="block text-xs font-semibold text-violetBrand-300 mt-2">— Com muito amor, Sua Família e Amigos💜</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="relative z-10 glass-purple py-8 text-center text-xs text-violetBrand-300 space-y-2 border-t border-violetBrand-500/20">
+        <p class="font-serif text-base text-violetBrand-200">Com todo carinho para Daniele • 31 Anos</p>
+        <p>© 08 de Novembro — Um ciclo inesquecível de luz, alegrias e amor.</p>
+    </footer>
+
+    <!-- MODAL DE RECADO DE TEXTO -->
+    <div id="wish-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-deepPurple border border-violetBrand-500/40 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-violetBrand-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <h3 class="font-serif text-2xl font-bold text-white">Enviar Mensagem ✨</h3>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium text-violetBrand-200 mb-1">Seu Nome </label>
+                    <input type="text" id="sender-name" placeholder="Ex: Lucas / Amigo" class="w-full px-3.5 py-2.5 bg-violetBrand-950 border border-violetBrand-500/40 rounded-lg text-white text-sm focus:ring-2 focus:ring-violetBrand-400 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-violetBrand-200 mb-1">Sua Mensagem</label>
+                    <textarea id="sender-message" rows="3" placeholder="Escreva aqui suas palavras de carinho..." class="w-full px-3.5 py-2.5 bg-violetBrand-950 border border-violetBrand-500/40 rounded-lg text-white text-sm focus:ring-2 focus:ring-violetBrand-400 outline-none"></textarea>
+                </div>
+            </div>
+
+            <button onclick="submitWish()" class="w-full py-3 bg-violetBrand-600 hover:bg-violetBrand-500 text-white font-medium rounded-lg transition-all text-sm shadow-lg">
+                Publicar no Mural
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DE FUNCIONALIDADES E BALÕES ANIMADOS -->
+    <script>
+        // 1. CONFETES E BRILHOS ROXOS
+        function launchPurpleConfetti() {
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: { y: 0.6 },
+                colors: ['#A78BFA', '#7C3AED', '#C4B5FD', '#F472B6', '#FBBF24', '#FFFFFF']
+            });
+        }
+
+        // Lança confete automaticamente ao carregar
+        window.addEventListener('load', () => {
+            setTimeout(launchPurpleConfetti, 400);
+            setupAudioPlayers();
+            initBalloons();
+        });
+
+        // 2. PLAYERS DE ÁUDIO & EQUALIZADOR
+        let activeAudio = null;
+
+        function toggleAudio(id, btn) {
+            const audio = document.getElementById(id);
+            const icon = btn.querySelector('i');
+            const eq = document.getElementById(`eq-${id}`);
+
+            // Se outro áudio estiver tocando, pausa ele
+            if (activeAudio && activeAudio !== audio) {
+                activeAudio.pause();
+                const activeBtn = activeAudio.parentElement.querySelector('button i');
+                const activeEq = document.getElementById(`eq-${activeAudio.id}`);
+                if (activeBtn) activeBtn.className = 'fa-solid fa-play text-sm';
+                if (activeEq) {
+                    activeEq.classList.remove('playing');
+                    activeEq.classList.add('paused');
+                }
+            }
+
+            if (audio.paused) {
+                audio.play();
+                icon.className = 'fa-solid fa-pause text-sm';
+                eq.classList.remove('paused');
+                eq.classList.add('playing');
+                activeAudio = audio;
+            } else {
+                audio.pause();
+                icon.className = 'fa-solid fa-play text-sm';
+                eq.classList.remove('playing');
+                eq.classList.add('paused');
+                activeAudio = null;
+            }
+        }
+
+        function seekAudio(id, value) {
+            const audio = document.getElementById(id);
+            if (audio.duration) {
+                audio.currentTime = (value / 100) * audio.duration;
+            }
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function setupAudioPlayers() {
+            const audioIds = ['audio-1', 'audio-2', 'audio-3', 'audio-4'];
+
+            audioIds.forEach(id => {
+                const audio = document.getElementById(id);
+                const progress = document.getElementById(`${id}-progress`);
+                const currentEl = document.getElementById(`${id}-current`);
+                const durationEl = document.getElementById(`${id}-duration`);
+                const eq = document.getElementById(`eq-${id}`);
+
+                audio.addEventListener('loadedmetadata', () => {
+                    durationEl.innerText = formatTime(audio.duration);
+                });
+
+                audio.addEventListener('timeupdate', () => {
+                    currentEl.innerText = formatTime(audio.currentTime);
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    progress.value = pct || 0;
+                });
+
+                audio.addEventListener('ended', () => {
+                    const btn = audio.parentElement.querySelector('button i');
+                    if (btn) btn.className = 'fa-solid fa-play text-sm';
+                    progress.value = 0;
+                    currentEl.innerText = '0:00';
+                    if (eq) {
+                        eq.classList.remove('playing');
+                        eq.classList.add('paused');
+                    }
+                });
+            });
+        }
+
+        // 3. MURAL DE MENSAGENS
+        function openModal() {
+            document.getElementById('wish-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('wish-modal').classList.add('hidden');
+        }
+
+        function submitWish() {
+            const name = document.getElementById('sender-name').value.trim();
+            const message = document.getElementById('sender-message').value.trim();
+
+            if (!name || !message) {
+                alert('Preencha seu nome e mensagem!');
+                return;
+            }
+
+            const list = document.getElementById('messages-list');
+            const card = document.createElement('div');
+            card.className = "p-4 bg-violetBrand-950/60 rounded-xl border border-violetBrand-500/30 shadow-sm transition-all";
+            card.innerHTML = `
+                <p class="text-sm text-violetBrand-100 italic">"${message}"</p>
+                <span class="block text-xs font-semibold text-violetBrand-300 mt-2">— Com carinho, ${name} 💜</span>
+            `;
+
+            list.prepend(card);
+            document.getElementById('sender-name').value = '';
+            document.getElementById('sender-message').value = '';
+            closeModal();
+            launchPurpleConfetti();
+        }
+
+        // 4. BALÕES FLUTUANTES NO CANVAS DE FUNDO
+        function initBalloons() {
+            const canvas = document.getElementById('balloons-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            // Cores dos balões em tons roxos, lilás, dourados e festivos
+            const balloonColors = [
+                { main: 'rgba(139, 92, 246, 0.5)', highlight: 'rgba(196, 181, 253, 0.7)' }, // Roxo
+                { main: 'rgba(168, 85, 247, 0.45)', highlight: 'rgba(233, 213, 255, 0.7)' }, // Lilás
+                { main: 'rgba(217, 70, 239, 0.4)', highlight: 'rgba(245, 208, 254, 0.65)' }, // Fuchsia
+                { main: 'rgba(234, 179, 8, 0.35)', highlight: 'rgba(254, 240, 138, 0.6)' },  // Dourado
+                { main: 'rgba(124, 58, 237, 0.5)', highlight: 'rgba(221, 214, 254, 0.75)' }  // Deep Purple
+            ];
+
+            // Criar array de balões
+            const balloonCount = Math.floor(window.innerWidth / 40); // Responsivo
+            const balloons = Array.from({ length: Math.max(18, balloonCount) }, () => createBalloon(canvas, balloonColors));
+
+            function createBalloon(canvas, colors) {
+                const colorScheme = colors[Math.floor(Math.random() * colors.length)];
+                return {
+                    x: Math.random() * canvas.width,
+                    y: canvas.height + Math.random() * canvas.height * 0.8,
+                    radiusX: Math.random() * 12 + 16, // Largura do balão
+                    radiusY: Math.random() * 16 + 22, // Altura do balão
+                    speedY: Math.random() * 0.8 + 0.4,
+                    swayAmplitude: Math.random() * 1.5 + 0.5,
+                    swaySpeed: Math.random() * 0.02 + 0.01,
+                    swayAngle: Math.random() * Math.PI * 2,
+                    color: colorScheme.main,
+                    highlight: colorScheme.highlight,
+                    stringLength: Math.random() * 20 + 25
+                };
+            }
+
+            function drawBalloon(b) {
+                ctx.save();
+
+                // Desenhar Fio do Balão
+                ctx.beginPath();
+                ctx.moveTo(b.x, b.y + b.radiusY);
+                const stringControlX = b.x + Math.sin(b.swayAngle) * 8;
+                ctx.quadraticCurveTo(stringControlX, b.y + b.radiusY + b.stringLength / 2, b.x, b.y + b.radiusY + b.stringLength);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Corpo do Balão (Elipse)
+                ctx.beginPath();
+                ctx.ellipse(b.x, b.y, b.radiusX, b.radiusY, 0, 0, Math.PI * 2);
+                ctx.fillStyle = b.color;
+                ctx.fill();
+
+                // Nó do Balão
+                ctx.beginPath();
+                ctx.moveTo(b.x - 3, b.y + b.radiusY);
+                ctx.lineTo(b.x + 3, b.y + b.radiusY);
+                ctx.lineTo(b.x, b.y + b.radiusY + 4);
+                ctx.closePath();
+                ctx.fillStyle = b.color;
+                ctx.fill();
+
+                // Brilho / Reflexo 3D no Balão
+                ctx.beginPath();
+                ctx.ellipse(b.x - b.radiusX * 0.35, b.y - b.radiusY * 0.35, b.radiusX * 0.25, b.radiusY * 0.35, -Math.PI / 6, 0, Math.PI * 2);
+                ctx.fillStyle = b.highlight;
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                balloons.forEach(b => {
+                    b.y -= b.speedY;
+                    b.swayAngle += b.swaySpeed;
+                    b.x += Math.sin(b.swayAngle) * (b.swayAmplitude * 0.3);
+
+                    // Se subir além da tela, reinicia na parte inferior
+                    if (b.y + b.radiusY + b.stringLength < -50) {
+                        b.y = canvas.height + 60;
+                        b.x = Math.random() * canvas.width;
+                    }
+
+                    drawBalloon(b);
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+</body>
+</html>
